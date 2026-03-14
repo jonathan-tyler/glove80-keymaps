@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "rake: build",
+            "type": "shell",
+            "command": "rake",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "open: MoErgo website",
+            "type": "shell",
+            "command": "$BROWSER https://www.moergo.com/",
+            "problemMatcher": []
+        }
+    ]
+}

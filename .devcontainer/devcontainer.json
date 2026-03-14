@@ -1,0 +1,28 @@
+{
+    "name": "glove80-keymaps",
+    "build": {
+        "context": "..",
+        "dockerfile": "Containerfile"
+    },
+    "runArgs": [
+        "--name=glove80-keymaps-dev",
+        "--network=none"
+    ],
+    "remoteUser": "developer",
+    "workspaceFolder": "/workspaces/glove80-keymaps",
+    "mounts": [
+        // yolo agent settings (container-only)
+        "type=bind,source=${localEnv:HOME}/yolo.settings.json,target=/home/developer/.vscode-server/data/Machine/settings.json",
+        // lock file
+        "type=bind,source=${localEnv:HOME}/.agents,target=${containerWorkspaceFolder}/.agents",
+        // ~/my/kb
+        "type=bind,source=${localEnv:HOME}/my/kb,target=/home/developer/kb"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "DavidAnson.vscode-markdownlint"
+            ]
+        }
+    }
+}

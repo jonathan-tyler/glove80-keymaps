@@ -1,0 +1,27 @@
+FROM debian:12.10-slim
+
+ENV USERNAME=developer
+ENV USER_UID=1000
+ENV USER_GID=1000
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
+RUN set -eux; \
+    apt-get update; \
+    apt-get install --yes --no-install-recommends \
+        graphviz \
+        graphicsmagick \
+        locales \
+        poppler-utils \
+        rake \
+        ruby; \
+    sed -i 's/^# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen; \
+    locale-gen; \
+    groupadd --gid "$USER_GID" "$USERNAME"; \
+    useradd --uid "$USER_UID" --gid "$USER_GID" --create-home --shell /bin/bash "$USERNAME"; \
+    install -d --owner "$USERNAME" --group "$USERNAME" /workspaces /workspaces/glove80-keymaps; \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspaces/glove80-keymaps
+
+USER $USERNAME
